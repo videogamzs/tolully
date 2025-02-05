@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="notranslate" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Lully</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0b1522;
+        }
+        .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: #f20044;
+        border-radius: 50%;
+        box-shadow: 0 0 5px #ff0000;
+        animation: twinkle 2s infinite alternate ease-in-out;
+    }
+@keyframes twinkle {
+    0% { opacity: 0.3; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.3); }
+}
+        .heart-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer; /* Indicates the heart is clickable */
+        }
+
+        .heart {
+            height: 70px;
+            width: 70px;
+            background: #f20044;
+            position: relative;
+            transform: rotate(-45deg);
+            box-shadow: -10px 10px 90px #f20044;
+            animation: heart 0.6s linear infinite;
+        }
+
+        @keyframes heart {
+            0% {
+                transform: rotate(-45deg) scale(1);
+            }
+            80% {
+                transform: rotate(-45deg) scale(1.1);
+            }
+            100% {
+                transform: rotate(-45deg) scale(1);
+            }
+        }
+
+        .heart:before {
+            content: '';
+            position: absolute;
+            height: 70px;
+            width: 70px;
+            background: #f20044;
+            top: -50%;
+            border-radius: 50px;
+            box-shadow: -10px -10px 90px #f20044;
+        }
+
+        .heart:after {
+            content: '';
+            position: absolute;
+            height: 70px;
+            width: 70px;
+            background: #f20044;
+            right: -50%;
+            border-radius: 50px;
+            box-shadow: 10px 10px 90px #f20044;
+        }
+
+        .message {
+            position: absolute;
+            bottom: -30px;
+            left: 280%; /* Pushes the message further from the heart */
+            transform: translateX(-50%);
+            background-color: #f20044;  /* Reddish color like the heart */
+            padding: 12px 50px; /* Less height, more width */
+            border-radius: 8px; /* Makes it rectangular */
+            font-size: 15px;
+            color: #fff;
+            display: none;  /* Initially hidden */
+            max-width: 250px; /* More width */
+            box-shadow: -10px -10px 90px #f20044;
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        .message::before {
+            content: '';
+            position: absolute;
+            left: -60px;  /* Moves the line further left to be longer */
+            bottom: 50%;
+            transform: translateY(50%);
+            width: 60px;   /* Makes the line longer */
+            height: 4px;  /* Thinner line */
+            background-color: #f20044;
+            box-shadow: -10px -10px 90px #f20044;
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-container" onclick="toggleMessage()">
+        <div class="heart"></div>
+        <div class="star"></div>
+        <div class="message">Voce nao faz a menor ideia do quanto voce é magnifica e eu te adoro meu deus do ceu beldade</div>
+    </div>
+
+    <script>
+        function toggleMessage() {
+            const messageBox = document.querySelector('.message');
+            messageBox.style.display = messageBox.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+    <script>
+                function createStars() {
+            const numStars = 100; // Número de estrelas
+            const body = document.body;
+            const heartX = window.innerWidth / 2;  // Centro X da tela
+            const heartY = window.innerHeight / 2; // Centro Y da tela
+            const exclusionRadius = 120; // Raio de exclusão ao redor do coração
+    
+            for (let i = 0; i < numStars; i++) {
+                let star = document.createElement("div");
+                star.classList.add("star");
+    
+                let x, y, distance;
+                do {
+                    x = Math.random() * window.innerWidth; // Posição aleatória X
+                    y = Math.random() * window.innerHeight; // Posição aleatória Y
+                    
+                    // Calcula a distância até o coração
+                    distance = Math.sqrt(Math.pow(x - heartX, 2) + Math.pow(y - heartY, 2));
+                } while (distance < exclusionRadius); // Repetir se a estrela estiver muito perto do coração
+    
+                let size = Math.random() * 3 + 1; // Tamanho aleatório entre 1px e 4px
+    
+                star.style.left = `${x}px`;
+                star.style.top = `${y}px`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+    
+                body.appendChild(star);
+            }
+        }
+    
+        createStars();
+    </script>
+</body>
+</html>
+
